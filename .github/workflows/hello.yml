@@ -1,4 +1,4 @@
-name: Hello CI
+name: Homelab CI
 
 on:
   push:
@@ -6,15 +6,15 @@ on:
       - main
 
 jobs:
-  hello:
+  validate:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Say Hello
-        run: echo "Hello from GitHub Actions"
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Show Docker Version
-        run: docker --version
+      - name: Validate Root Docker Compose
+        run: docker compose -f docker-compose.yml config
 
-      - name: Show OS
-        run: uname -a
+      - name: Validate Monitoring Docker Compose
+        run: docker compose -f monitoring/docker-compose.yml config
