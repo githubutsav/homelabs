@@ -1,6 +1,10 @@
 name: Homelab CI
 
 on:
+  pull_request:
+    branches:
+      - main
+
   push:
     branches:
       - main
@@ -18,3 +22,11 @@ jobs:
 
       - name: Validate Monitoring Docker Compose
         run: docker compose -f monitoring/docker-compose.yml config
+
+      - name: Verify Expected Services Exist
+        run: |
+          services=$(docker compose config --services)
+
+          echo "$services" | grep nginx
+          echo "$services" | grep postgres
+          echo "$services" | grep redis
