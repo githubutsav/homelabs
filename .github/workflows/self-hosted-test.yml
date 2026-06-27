@@ -1,0 +1,15 @@
+name: Self Hosted Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: self-hosted
+
+    steps:
+      - name: Show Host
+        run: |
+          whoami
+          hostname
+          pwd
